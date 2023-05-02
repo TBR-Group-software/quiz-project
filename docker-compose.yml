@@ -1,0 +1,119 @@
+version: "3.8"
+services:
+  quiz-app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    container_name: quiz-app
+    restart: always
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "
+             python3 manage.py makemigrations &&
+             python3 manage.py migrate &&
+             python3 manage.py collectstatic --no-input &&
+             daphne -b 0.0.0.0 -p 8000 quiz_project.asgi:application"
+    volumes:
+      - .:/app
+      - static-volume:/app/static
+      - media-volume:/app/media
+    networks:
+      - quiz-network
+    environment:
+      - PSQL_USER=${PSQL_USER}
+      - PSQL_PASSWORD=${PSQL_PASSWORD}
+      - PSQL_DB=${PSQL_NAME}
+      - PSQL_HOST=quiz-db
+      - PSQL_PORT=${PSQL_PORT}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
+      - DJANGO_DEBUG=${DJANGO_DEBUG}
+      - RABBITMQ_HOST=quiz-rabbitmq
+      - RABBITMQ_PORT=5672
+    logging:
+            driver: "json-file"
+            options:
+                max-size: "50m"
+    depends_on:
+      - quiz-db
+  quiz-nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    container_name: quiz-nginx
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - quiz-network
+    volumes:
+      - static-volume:/var/www/app/staticfiles
+      - media-volume:/var/www/app/media
+    depends_on:
+      - quiz-app
+  quiz-db:
+    image: postgres:15.1-alpine
+    container_name: quiz-db
+    restart: always
+    environment:
+      - POSTGRES_USER=${PSQL_USER}
+      - POSTGRES_PASSWORD=${PSQL_PASSWORD}
+      - POSTGRES_DB=${PSQL_NAME}
+    ports:
+      - '${PSQL_PORT}:${PSQL_PORT}'
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - quiz-network
+    logging:
+          driver: "json-file"
+          options:
+              max-size: "50m"
+  quiz-rabbitmq:
+    image: rabbitmq:3.11-alpine
+    container_name: quiz-rabbitmq
+    restart: always
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    networks:
+      - quiz-network
+  quiz-celery:
+    build:
+      context: .
+      dockerfile: ./docker/celery/Dockerfile
+    container_name: quiz-celery
+    restart: always
+    command: "celery -A quiz_project worker -l info -B"
+    volumes:
+      - .:/app
+    networks:
+      - quiz-network
+    environment:
+      - PSQL_USER=${PSQL_USER}
+      - PSQL_PASSWORD=${PSQL_PASSWORD}
+      - PSQL_DB=${PSQL_NAME}
+      - PSQL_HOST=quiz-db
+      - PSQL_PORT=${PSQL_PORT}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
+      - DJANGO_DEBUG=${DJANGO_DEBUG}
+      - RABBITMQ_HOST=quiz-rabbitmq
+      - RABBITMQ_PORT=5672
+    depends_on:
+      - quiz-db
+      - quiz-rabbitmq
+    logging:
+            driver: "json-file"
+            options:
+                max-size: "50m"
+volumes:
+  static-volume:
+  media-volume:
+  db:
+    driver: local
+networks:
+  quiz-network:
+    external: true
+    driver: bridge
