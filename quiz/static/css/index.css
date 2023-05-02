@@ -1,0 +1,40 @@
+.quiz{
+    border-radius: 30px;
+    background-color: rgb(238, 238, 238);
+    max-width: 900px;
+    min-height: 600px;
+    width: 100%;
+    padding: 15px;
+}
+
+.progress {
+    --bs-progress-height: 0.5rem;
+    --bs-progress-bar-bg: rgba(255,93,93,1);
+    margin: 5px;
+}
+
+.description{
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    background: rgb(255,93,93);
+    color: white;
+}
+
+.question{
+    padding: 5px;
+    margin-right: 10px;
+    margin-left: 15px;
+}
+
+.gray-line{
+    background-color: rgb(159, 159, 159);
+    height: 1px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 30px;
+}
+
+.question label{
+    margin-left: 10px;
+}
