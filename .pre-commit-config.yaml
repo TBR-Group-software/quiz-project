@@ -18,11 +18,15 @@ repos:
     hooks:
       - id: black
         language_version: python3.11
-        exclude: ^migrations/|^static/|^templates/|env/|/__init__\.py$
+        exclude: migrations/|static/|templates/|env/|__init__.py
   - repo: https://github.com/timothycrosley/isort
     rev: 5.12.0
     hooks:
     - id: isort
+  - repo: https://github.com/Riverside-Healthcare/djLint
+    rev: v1.24.0
+    hooks:
+      - id: djlint-django
   - repo: https://github.com/PyCQA/flake8
     rev: 6.0.0
     hooks:
