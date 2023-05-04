@@ -1,8 +1,17 @@
-body{
+body {
     height: 100vh;
-    background: rgb(255,93,93);
-    background: linear-gradient(62deg, rgba(255,93,93,1) 0%, rgba(94,145,255,1) 100%);
+    background: rgb(255, 93, 93);
+    background: linear-gradient(62deg, rgba(255, 93, 93, 1) 0%, rgba(94, 145, 255, 1) 100%);
 }
-.container{
+
+.container {
     height: 100%;
+}
+
+.screen {
+    border-radius: 30px;
+    background-color: rgb(238, 238, 238);
+    max-width: 900px;
+    width: 100%;
+    padding: 15px;
 }

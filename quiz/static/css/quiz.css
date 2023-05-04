@@ -1,14 +1,6 @@
-.quiz{
-    border-radius: 30px;
-    background-color: rgb(238, 238, 238);
-    max-width: 900px;
-    width: 100%;
-    padding: 15px;
-}
-
 .progress {
     --bs-progress-height: 0.5rem;
-    --bs-progress-bar-bg: rgba(255,93,93,1);
+    --bs-progress-bar-bg: rgba(255, 93, 93, 1);
     margin: 5px;
 }
 
@@ -16,26 +8,25 @@
     border-radius: 4px;
 }
 
-.description{
+.description {
     padding: 5px;
     margin: 5px;
     border-radius: 10px;
-    background: rgb(255,93,93);
+    background: rgb(255, 93, 93);
     color: white;
 }
 
-.answer{
+.answer {
     padding: 5px;
     margin-right: 10px;
     margin-left: 15px;
 }
 
-.answer label{
+.answer label {
     margin-left: 10px;
 }
 
-
-.gray-line{
+.gray-line {
     background-color: rgb(159, 159, 159);
     height: 1px;
     margin-top: 5px;
