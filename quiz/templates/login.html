@@ -3,9 +3,12 @@
 {% block imports %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 {% endblock imports %}
+{% block title %}
+    Login
+{% endblock title %}
 {% block content %}
     <div class="container d-flex align-items-center justify-content-center">
-        <div class="screen">
+        <div class="screen position-relative">
             <div class="auth">
                 <h1 class="text-center h3">Login</h1>
                 {% if messages %}
@@ -21,7 +24,8 @@
                     {% csrf_token %}
                     {{ form.username }}
                     {{ form.password }}
-                    <button class="btn btn-outline-danger float-end" type="submit">Login</button>
+                    <button class="btn btn-outline-danger position-absolute login-button"
+                            type="submit">Login</button>
                 </form>
             </div>
         </div>

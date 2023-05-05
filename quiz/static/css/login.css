@@ -1,5 +1,14 @@
-input{
-    margin-bottom: 10px!important;
+input {
+    margin-bottom: 10px !important;
     max-width: 300px;
     margin: auto;
+}
+
+.login-button {
+    right: 15px;
+    bottom: 15px;
+}
+
+.auth {
+    margin-top: 10%;
 }

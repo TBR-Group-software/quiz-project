@@ -12,7 +12,7 @@ const getCookie = function (cName) {
 function processUserChoice(questionId, anwerdId) {
     const isAnswered = sendUserChoice(questionId, anwerdId);
     if (isAnswered) {
-        unCheckAnswer(anwerdId);
+        unCheckAnswer(anwerdId, questionId);
         const isNextSelected = selectNextQuestion(questionId);
         if (!isNextSelected) {
             console.log('Quiz is finished');
@@ -55,7 +55,7 @@ function selectNextQuestion(questionId) {
         return false;
     }
 
-    question.className += 'd-none';
+    question.className += ' d-none';
     nextQuestion.className = nextQuestion.className.replace('d-none', '');
     hideOrShowBackButton();
 
@@ -87,7 +87,7 @@ function updateProgressBar(questionId, isBackButtonPressed = false) {
 
 function finishQuiz() {
     const lastQuestion = document.getElementById('questions').lastElementChild;
-    lastQuestion.className += 'd-none';
+    lastQuestion.className += ' d-none';
 
     const finishScreen = document.getElementById('finish_quiz_container');
     finishScreen.className = finishScreen.className.replace('d-none', '');
@@ -98,11 +98,11 @@ function backToPreviusQuestion() {
     if (currentQuestion == null) {
         var prevQuestion = document.querySelector('.last-question.d-none');
         const finishScreen = document.getElementById('finish_quiz_container');
-        finishScreen.className += 'd-none';
+        finishScreen.className += ' d-none';
     }
     else {
         var prevQuestion = currentQuestion.previousElementSibling;
-        currentQuestion.className += 'd-none';
+        currentQuestion.className += ' d-none';
     }
 
     if (prevQuestion == null) {
@@ -130,7 +130,15 @@ function hideOrShowBackButton() {
     }
 }
 
-function unCheckAnswer(answerId){
-    const answer = document.getElementById(`answer_${answerId}`);
-    answer.checked = false;
+function unCheckAnswer(answerId, questionId) {
+    const question = document.getElementById(`question_${questionId}`);
+    const allAnswerds = question.getElementsByClassName('form-check-input');
+    for (var currentAnserIndex = 0; currentAnserIndex < allAnswerds.length; currentAnserIndex++) {
+        if (allAnswerds[currentAnserIndex].id != `answer_${answerId}`) {
+            allAnswerds[currentAnserIndex].checked = false;
+        }
+        else{
+            allAnswerds[currentAnserIndex].checked = true;
+        }
+    }
 }

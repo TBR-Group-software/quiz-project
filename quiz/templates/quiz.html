@@ -4,33 +4,35 @@
     <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
     <script src="{% static 'js/quiz.js' %}"></script>
 {% endblock imports %}
+{% block title %}
+    {{ quiz.name }}
+{% endblock title %}
 {% block content %}
     <div class="container d-flex align-items-center justify-content-center">
-        <div class="screen">
+        <div class="screen position-relative">
             <h1 class="text-center h3">{{ quiz.name }}</h1>
             <div class="row">
-                <div class="pregress-bar-container col-6 ">
+                <div class="pregress-bar-container">
                     <div class="progress mt-3">
                         <div class="progress-bar"
-                            id="progress_bar"
-                            role="progressbar"
-                            style="width: 0%"
-                            aria-valuenow="0"
-                            aria-valuemin="0"
-                            aria-valuemax="100">
-                        </div>
+                             id="progress_bar"
+                             role="progressbar"
+                             style="width: 0%"
+                             aria-valuenow="0"
+                             aria-valuemin="0"
+                             aria-valuemax="100"></div>
                     </div>
                 </div>
-                <div class="back-button-container d-none col">
+                <div class="back-button-container d-none ">
                     <input type="button"
-                           class="btn btn-outline-danger float-end"
+                           class="btn btn-outline-danger float-end position-absolute"
                            value="Back"
                            onclick="backToPreviusQuestion()">
                 </div>
             </div>
             <div id="questions">
                 {% for question in quiz.questions.all %}
-                    <div class="question-container {% if not forloop.first %}d-none{% endif %} {% if forloop.last %}last-question {% endif %}"
+                    <div class="question-container {% if not forloop.first %}d-none{% endif %} {% if forloop.last %}last-question{% endif %}"
                          id="question_{{ question.id }}">
                         <div class="description mt-3">
                             <span>{{ question.name }}</span>
@@ -53,16 +55,14 @@
                 {% endfor %}
             </div>
             <div id="finish_quiz_container" class="finish-quiz-container d-none">
-                <div class="description mt-3">
+                <div class="description mt-3  position-absolute">
                     <span>Thank you for completing the quiz!🤘</span>
                 </div>
-                <div class="actions mt-3 mb-2">
-                    <a href="#" class="btn btn-outline-danger float-end">Finish</a>
+                <div class="actions mt-3 mb-2 position-absolute">
+                    <a href="{% url 'quiz:index' %}"
+                       class="btn btn-outline-danger float-end">Finish</a>
                 </div>
             </div>
-        </div>
-        <div class="actions mt-3 mb-2 d-none">
-            <button class="btn btn-outline-danger float-end">Next</button>
         </div>
     </div>
 {% endblock content %}

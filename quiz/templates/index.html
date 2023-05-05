@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% block title %}
+    Quiz project
+{% endblock title %}
 {% block content %}
     <div class="container d-flex align-items-center justify-content-center">
         <div class="screen">
@@ -14,7 +17,9 @@
                     </tr>
                     {% for quiz in quizzes %}
                         <tr>
-                            <td><a href='{% url "quiz:quiz" slug=quiz.slug %}'>{{ quiz.name }}</a></td>
+                            <td>
+                                <a href='{% url "quiz:quiz" slug=quiz.slug %}'>{{ quiz.name }}</a>
+                            </td>
                             <td>{{ quiz.start_date|date:'Y-m-d H:i' }}</td>
                             <td>{{ quiz.end_date|date:'Y-m-d H:i' }}</td>
                             <td>{{ quiz.user_created }}</td>
