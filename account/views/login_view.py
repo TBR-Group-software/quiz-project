@@ -1,13 +1,16 @@
 from django.contrib import messages
 from django.contrib.auth import login
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 
-from quiz.forms import UserLoginForm
+from account.forms import UserLoginForm
 
 
-def user_login(request: HttpRequest):
+def user_login_view(request: HttpRequest) -> HttpResponse:
     """User login view."""
+    if request.user.is_authenticated:
+        messages.success(request, "You already log in.")
+        return redirect("quiz:index")
     if request.method == "POST":
         form = UserLoginForm(data=request.POST)
         if form.is_valid():

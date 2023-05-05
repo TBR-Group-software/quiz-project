@@ -2,6 +2,7 @@ body {
     height: 100vh;
     background: rgb(255, 93, 93);
     background: linear-gradient(62deg, rgba(255, 93, 93, 1) 0%, rgba(94, 145, 255, 1) 100%);
+    font-family: 'Roboto', sans-serif!important;
 }
 
 .container {
@@ -15,4 +16,16 @@ body {
     min-height: 450px;
     width: 100%;
     padding: 15px;
+}
+
+.logout-button{
+    right: 30px;
+    top: 10px;
+}
+
+a{
+    background: -webkit-linear-gradient(27deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 72%, rgba(252,176,69,1) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

@@ -3,10 +3,11 @@ input {
     max-width: 300px;
     margin: auto;
 }
-
 .login-button {
-    right: 15px;
-    bottom: 15px;
+    margin: auto;
+    display: block;
+    width: 100%;
+    max-width: 300px;
 }
 
 .auth {
