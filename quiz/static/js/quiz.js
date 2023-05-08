@@ -55,8 +55,8 @@ function selectNextQuestion(questionId) {
         return false;
     }
 
-    question.className += ' d-none';
-    nextQuestion.className = nextQuestion.className.replace('d-none', '');
+    question.classList.add('d-none');
+    nextQuestion.classList.remove('d-none');
     hideOrShowBackButton();
 
     return true;
@@ -87,10 +87,10 @@ function updateProgressBar(questionId, isBackButtonPressed = false) {
 
 function finishQuiz() {
     const lastQuestion = document.getElementById('questions').lastElementChild;
-    lastQuestion.className += ' d-none';
+    lastQuestion.classList.add('d-none');
 
     const finishScreen = document.getElementById('finish_quiz_container');
-    finishScreen.className = finishScreen.className.replace('d-none', '');
+    finishScreen.classList.remove('d-none');
 }
 
 function backToPreviusQuestion() {
@@ -98,18 +98,18 @@ function backToPreviusQuestion() {
     if (currentQuestion == null) {
         var prevQuestion = document.querySelector('.last-question.d-none');
         const finishScreen = document.getElementById('finish_quiz_container');
-        finishScreen.className += ' d-none';
+        finishScreen.classList.add('d-none');
     }
     else {
         var prevQuestion = currentQuestion.previousElementSibling;
-        currentQuestion.className += ' d-none';
+        currentQuestion.classList.add('d-none');
     }
 
     if (prevQuestion == null) {
         return false;
     }
 
-    prevQuestion.className = prevQuestion.className.replace('d-none', '');
+    prevQuestion.classList.remove('d-none');
 
     updateProgressBar(prevQuestion.id.replace('question_', ''), true);
     hideOrShowBackButton();
@@ -123,10 +123,10 @@ function hideOrShowBackButton() {
     const questions = Array.prototype.slice.call(document.getElementById('questions').children);
     const currentQuestionIndex = questions.findIndex(question => question.id === currentQuestion.id);
     if (currentQuestionIndex === 0) {
-        backButton.className += ' d-none';
+        backButton.classList.add('d-none');
     }
     else {
-        backButton.className = backButton.className.replace('d-none', '');
+        backButton.classList.remove('d-none');
     }
 }
 
