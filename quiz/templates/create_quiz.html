@@ -11,27 +11,34 @@
     <div class="container d-flex align-items-center justify-content-center">
         <div class="screen position-relative">
             <h1 class="text-center h3">Create quiz</h1>
+            <span class="text-center d-none" id="page-counter">Page 1</span>
             <form action="" method="post" id="createQuizForm">
                 {% csrf_token %}
                 <div class="quiz">
+                    <span class="d-block text-center mb-2 h5">Quiz name</span>
                     <input type="text"
                            name="name"
-                           id="name"
-                           class="form-control"
+                           id="quiz_name"
+                           class="form-control mb-2"
+                           maxlength="200"
                            placeholder="Name">
+                    <span class="d-block text-center mb-2 h5">Quiz description</span>
                     <input name="description"
-                           id="description"
-                           class="form-control"
+                           id="quiz_description"
+                           class="form-control mb-2"
+                           maxlength="200"
                            placeholder="Description">
+                    <span class="d-block text-center mb-2 h5">Quiz start date</span>
                     <input type="datetime-local"
                            name="start_date"
-                           id="start_date"
-                           class="form-control"
+                           id="quiz_start_date"
+                           class="form-control mb-2"
                            placeholder="Start date">
+                    <span class="d-block text-center mb-2 h5">Quiz end date</span>
                     <input type="datetime-local"
                            name="end_date"
-                           id="end_date"
-                           class="form-control"
+                           id="quiz_end_date"
+                           class="form-control mb-2"
                            placeholder="End date">
                     <div class="actions position-absolute">
                         <input type="button"
@@ -53,14 +60,16 @@
                             <div class="mb-1">
                                 <span>Answers</span>
                                 <input type="button"
-                                       class="btn btn-outline-danger"
+                                       class="btn btn-outline-danger p-1"
                                        value="+"
+                                       maxlength="200"
                                        onclick="addAnswer()">
                             </div>
                             <div class="answer d-flex mb-2">
                                 <input type="text"
                                        name="question_1_answer_1"
                                        class="form-control"
+                                       maxlength="200"
                                        placeholder="Answer">
                                 <input class="btn btn-outline-danger ms-2"
                                        type="button"
@@ -69,6 +78,7 @@
                             </div>
                             <div class="answer d-flex mb-2">
                                 <input type="text"
+                                       maxlength="200"
                                        name="question_1_answer_2"
                                        class="form-control"
                                        placeholder="Answer">
@@ -79,6 +89,7 @@
                             </div>
                             <div class="answer d-flex mb-2">
                                 <input type="text"
+                                       maxlength="200"
                                        name="question_1_answer_3"
                                        class="form-control"
                                        placeholder="Answer">
@@ -91,35 +102,41 @@
                     </div>
                 </div>
                 <div class="actions-top-right action-create-quiz position-absolute d-none">
-                        <input type="button"
-                               class="btn btn-outline-danger"
-                               value="Create quiz"
-                               onclick="createQuiz()">
-                    </div>
-                    <div class="actions-top-right action next-button position-absolute d-none">
-                        <input type="button"
-                               class="btn btn-outline-danger"
-                               value="Next"
-                               onclick="nextButton()">
-                    </div>
-                    <div class="actions action position-absolute d-none">
-                        <input type="button"
-                               class="btn btn-outline-danger"
-                               value="Add question"
-                               onclick="addQuestion()">
-                    </div>
-                    <div class="actions-left action position-absolute d-none">
-                        <input type="button"
-                               class="btn btn-outline-danger"
-                               value="Delete question"
-                               onclick="removeQuestion()">
-                    </div>
-                    <div class="actions-top-left action back-button position-absolute d-none">
-                        <input type="button"
-                               class="btn btn-outline-danger"
-                               value="Back"
-                               onclick="backButton()">
-                    </div>
+                    <input type="button"
+                           class="btn btn-outline-danger"
+                           value="Create quiz"
+                           onclick="createQuiz()">
+                </div>
+                <div class="actions-top-right action next-button position-absolute d-none">
+                    <input type="button"
+                           class="btn btn-outline-danger"
+                           value="Next"
+                           onclick="nextButton()">
+                </div>
+                <div class="actions action position-absolute d-none">
+                    <input type="button"
+                           class="btn btn-outline-danger"
+                           value="Add question"
+                           onclick="addQuestion()">
+                </div>
+                <div class="actions-left action remove-question-button position-absolute d-none">
+                    <input type="button"
+                           class="btn btn-outline-danger"
+                           value="Delete question"
+                           onclick="removeQuestion()">
+                </div>
+                <div class="actions-left action back-to-start-button position-absolute d-none">
+                    <input type="button"
+                           class="btn btn-outline-danger"
+                           value="Back to start"
+                           onclick="backToStart()">
+                </div>
+                <div class="actions-top-left action back-button position-absolute d-none">
+                    <input type="button"
+                           class="btn btn-outline-danger"
+                           value="Back"
+                           onclick="backButton()">
+                </div>
             </form>
         </div>
     </div>

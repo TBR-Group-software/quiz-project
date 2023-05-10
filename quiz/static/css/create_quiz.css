@@ -2,24 +2,3 @@
     bottom: 10px;
     right: 15px;
 }
-
-.actions-left{
-    bottom: 10px;
-    left: 15px;
-}
-
-.actions-center{
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.actions-top-right{
-    top: 15px;
-    right: 15px;
-}
-
-.actions-top-left{
-    top: 15px;
-    left: 15px;
-}

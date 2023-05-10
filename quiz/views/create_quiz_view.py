@@ -7,24 +7,54 @@ from django.http import (
 )
 from django.shortcuts import redirect, render
 from django.views import View
+import json
 
 from quiz.forms import CreateAnswerForm, CreateQuestionForm, CreateQuizForm
+from quiz.models import Quiz, Question, Answer
+
+
+MIN_ANSWER_COUNT = 2
+MAX_ANSWER_COUNT = 5
+MAX_QUESTION_COUNT = 10
 
 
 class CreateQuizView(LoginRequiredMixin, View):
     """Create quiz view."""
 
     def get(self, request: HttpRequest) -> HttpResponse:
-        context = {
-            "quiz_form": CreateQuizForm(),
-            "question_form": CreateQuestionForm(),
-            "answer_form": CreateAnswerForm(),
-        }
-
-        return render(request, "create_quiz.html", context)
+        return render(request, "create_quiz.html")
 
     def post(
         self, request: HttpRequest
     ) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
-        print(request.POST)
+        request_data = json.loads(request.body.decode("utf-8"))
+        quiz_data = {
+            "name": request_data["quiz_name"],
+            "description": request_data["quiz_description"],
+            "start_date": request_data["quiz_start_date"],
+            "end_date": request_data["quiz_end_date"],
+        }
+        if CreateQuizForm(data=quiz_data).is_valid():
+            quiz = Quiz(**quiz_data, user_created=request.user)
+            quiz.save()
+            if len(request_data["questions"]) > MAX_QUESTION_COUNT:
+                raise ValueError("Too many questions")
+            for question_request_data in request_data["questions"]:
+                question_data = {"name": question_request_data["question"]}
+                if CreateQuestionForm(data=question_data).is_valid():
+                    question = Question(**question_data)
+                    question.save()
+                    if (
+                        len(question_request_data["answers"]) < MIN_ANSWER_COUNT
+                        or len(question_request_data["answers"]) > MAX_ANSWER_COUNT
+                    ):
+                        raise ValueError("Too many or too few answers")
+                    for answer in question_request_data["answers"]:
+                        answer_data = {"name": answer}
+                        if CreateAnswerForm(data=answer_data).is_valid():
+                            answer = Answer(**answer_data)
+                            answer.save()
+                            question.answers.add(answer)
+                    quiz.questions.add(question)
+
         return redirect("quiz:index")
