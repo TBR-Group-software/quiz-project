@@ -31,6 +31,9 @@ services:
       - DJANGO_DEBUG=${DJANGO_DEBUG}
       - RABBITMQ_HOST=quiz-rabbitmq
       - RABBITMQ_PORT=5672
+      - MAILJET_API_KEY=${MAILJET_API_KEY}
+      - MAILJET_SECRET_KEY=${MAILJET_SECRET_KEY}
+      - MAILJET_SENDER=${MAILJET_SENDER}
     logging:
             driver: "json-file"
             options:

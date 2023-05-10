@@ -4,6 +4,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 
 from account.forms import RegisterForm
+from account.tasks import send_welcome_message
 
 
 def user_register_view(request: HttpRequest) -> HttpResponse:
@@ -22,6 +23,7 @@ def user_register_view(request: HttpRequest) -> HttpResponse:
             user = form.save(commit=False)
             user.username = user.email.lower()
             user.save()
+            send_welcome_message.delay(user.email)
             messages.success(request, "You have singed up successfully.")
             login(request, user)
             return redirect("quiz:index")
