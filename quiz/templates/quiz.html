@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
+{% load compress %}
 {% block imports %}
-    <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+    {% compress css %}
+        <link type="text/x-scss" rel="stylesheet" href="{% static 'scss/quiz.scss' %}">
+    {% endcompress %}
     <script src="{% static 'js/quiz.js' %}"></script>
 {% endblock imports %}
 {% block title %}
@@ -57,8 +60,7 @@
             <span>Thank you for completing the quiz!🤘</span>
         </div>
         <div class="actions mt-3 mb-2 position-absolute">
-            <a href="{% url 'quiz:index' %}"
-               class="btn btn-outline-danger float-end">Finish</a>
+            <a href="{% url 'quiz:index' %}" class="btn btn-outline-danger float-end">Finish</a>
         </div>
     </div>
 {% endblock content %}

@@ -16,7 +16,7 @@
             {% for quiz in quizzes %}
                 <tr>
                     <td>
-                        <a href='{% url "quiz:quiz" slug=quiz.slug %}'>{{ quiz.name }}</a>
+                        <a class="underline-href" href='{% url "quiz:quiz" slug=quiz.slug %}'>{{ quiz.name }}</a>
                     </td>
                     <td>{{ quiz.start_date|date:'Y-m-d H:i' }}</td>
                     <td>{{ quiz.end_date|date:'Y-m-d H:i' }}</td>

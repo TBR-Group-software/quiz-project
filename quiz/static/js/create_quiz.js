@@ -75,6 +75,9 @@ function hideCurrentQuestion() {
 function createQuiz() {
     const quizForm = document.getElementById('createQuizForm');
 
+    if (!validateFields()){
+        return;
+    }
 
     const questionsInForm = document.querySelectorAll('.question-answer');
     let questions = [];
