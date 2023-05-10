@@ -8,61 +8,57 @@
     {{ quiz.name }}
 {% endblock title %}
 {% block content %}
-    <div class="container d-flex align-items-center justify-content-center">
-        <div class="screen position-relative">
-            <h1 class="text-center h3">{{ quiz.name }}</h1>
-            <div class="row">
-                <div class="pregress-bar-container">
-                    <div class="progress mt-3">
-                        <div class="progress-bar"
-                             id="progress_bar"
-                             role="progressbar"
-                             style="width: 0%"
-                             aria-valuenow="0"
-                             aria-valuemin="0"
-                             aria-valuemax="100"></div>
-                    </div>
-                </div>
-                <div class="back-button-container d-none">
-                    <input type="button"
-                           class="btn btn-outline-danger float-end position-absolute"
-                           value="Back"
-                           onclick="backToPreviusQuestion()">
-                </div>
+    <h1 class="text-center h3">{{ quiz.name }}</h1>
+    <div class="row">
+        <div class="pregress-bar-container">
+            <div class="progress mt-3">
+                <div class="progress-bar"
+                     id="progress_bar"
+                     role="progressbar"
+                     style="width: 0%"
+                     aria-valuenow="0"
+                     aria-valuemin="0"
+                     aria-valuemax="100"></div>
             </div>
-            <div id="questions">
-                {% for question in quiz.questions.all %}
-                    <div class="question-container {% if not forloop.first %}d-none{% endif %} {% if forloop.last %}last-question{% endif %}"
-                         id="question_{{ question.id }}">
-                        <div class="description mt-3">
-                            <span>{{ question.name }}</span>
+        </div>
+        <div class="back-button-container d-none">
+            <input type="button"
+                   class="btn btn-outline-danger float-end position-absolute"
+                   value="Back"
+                   onclick="backToPreviusQuestion()">
+        </div>
+    </div>
+    <div id="questions">
+        {% for question in quiz.questions.all %}
+            <div class="question-container {% if not forloop.first %}d-none{% endif %} {% if forloop.last %}last-question{% endif %}"
+                 id="question_{{ question.id }}">
+                <div class="description mt-3">
+                    <span>{{ question.name }}</span>
+                </div>
+                <div class="answers row mt-3">
+                    {% for answer in question.answers.all %}
+                        <div class="answer col-12">
+                            <input type="checkbox"
+                                   name="{{ answer.name }}"
+                                   class="form-check-input"
+                                   id="answer_{{ answer.id }}"
+                                   value="{{ answer.id }}"
+                                   onclick="processUserChoice({{ question.id }}, {{ answer.id }})">
+                            <label class="form-check-label" for="answer-{{ answer.id }}">{{ answer.name }}</label>
+                            <div class="gray-line"></div>
                         </div>
-                        <div class="answers row mt-3">
-                            {% for answer in question.answers.all %}
-                                <div class="answer col-12">
-                                    <input type="checkbox"
-                                           name="{{ answer.name }}"
-                                           class="form-check-input"
-                                           id="answer_{{ answer.id }}"
-                                           value="{{ answer.id }}"
-                                           onclick="processUserChoice({{ question.id }}, {{ answer.id }})">
-                                    <label class="form-check-label" for="answer-{{ answer.id }}">{{ answer.name }}</label>
-                                    <div class="gray-line"></div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div id="finish_quiz_container" class="finish-quiz-container d-none">
-                <div class="description mt-3  position-absolute">
-                    <span>Thank you for completing the quiz!🤘</span>
-                </div>
-                <div class="actions mt-3 mb-2 position-absolute">
-                    <a href="{% url 'quiz:index' %}"
-                       class="btn btn-outline-danger float-end">Finish</a>
+                    {% endfor %}
                 </div>
             </div>
+        {% endfor %}
+    </div>
+    <div id="finish_quiz_container" class="finish-quiz-container d-none">
+        <div class="description mt-3  position-absolute">
+            <span>Thank you for completing the quiz!🤘</span>
+        </div>
+        <div class="actions mt-3 mb-2 position-absolute">
+            <a href="{% url 'quiz:index' %}"
+               class="btn btn-outline-danger float-end">Finish</a>
         </div>
     </div>
 {% endblock content %}

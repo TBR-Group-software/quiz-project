@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
+from django.contrib.messages import constants as messages
 
 load_dotenv()
 
@@ -141,3 +142,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CELERY_BROKER_URL = (
     f"amqp://{os.environ['RABBITMQ_HOST']}:{os.environ['RABBITMQ_PORT']}"
 )
+
+# Message Types
+
+MESSAGE_TAGS = {
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
+}

@@ -4,32 +4,28 @@
     Quiz project
 {% endblock title %}
 {% block content %}
-    <div class="container d-flex align-items-center justify-content-center">
-        <div class="screen position-relative">
-            <h1 class="text-center h3">Active quizzes</h1>
-            <div class="active-quiezes">
-                <table class="table table-striped table-hover">
-                    <tr>
-                        <th>Quiz name</th>
-                        <th>Start time</th>
-                        <th>End time</th>
-                        <th>By user</th>
-                    </tr>
-                    {% for quiz in quizzes %}
-                        <tr>
-                            <td>
-                                <a href='{% url "quiz:quiz" slug=quiz.slug %}'>{{ quiz.name }}</a>
-                            </td>
-                            <td>{{ quiz.start_date|date:'Y-m-d H:i' }}</td>
-                            <td>{{ quiz.end_date|date:'Y-m-d H:i' }}</td>
-                            <td>{{ quiz.user_created }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-            <div class="actions-top-right action position-absolute">
-                    <a href="{% url 'quiz:create_quiz' %}" class="btn btn-outline-danger">Create quiz</a>
-                </div>
-        </div>
+    <h1 class="text-center h3">Active quizzes</h1>
+    <div class="active-quiezes">
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>Quiz name</th>
+                <th>Start time</th>
+                <th>End time</th>
+                <th>By user</th>
+            </tr>
+            {% for quiz in quizzes %}
+                <tr>
+                    <td>
+                        <a href='{% url "quiz:quiz" slug=quiz.slug %}'>{{ quiz.name }}</a>
+                    </td>
+                    <td>{{ quiz.start_date|date:'Y-m-d H:i' }}</td>
+                    <td>{{ quiz.end_date|date:'Y-m-d H:i' }}</td>
+                    <td>{{ quiz.user_created }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="actions-top-right action position-absolute">
+        <a href="{% url 'quiz:create_quiz' %}" class="btn btn-outline-danger">Create quiz</a>
     </div>
 {% endblock content %}
