@@ -11,6 +11,8 @@ import json
 
 from quiz.forms import CreateAnswerForm, CreateQuestionForm, CreateQuizForm
 from quiz.models import Quiz, Question, Answer
+from psycopg2.errors import UniqueViolation
+from django.db.utils import IntegrityError
 
 
 MIN_ANSWER_COUNT = 2
@@ -26,7 +28,7 @@ class CreateQuizView(LoginRequiredMixin, View):
 
     def post(
         self, request: HttpRequest
-    ) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
+    ) -> HttpResponseRedirect | HttpResponsePermanentRedirect | HttpResponse:
         request_data = json.loads(request.body.decode("utf-8"))
         quiz_data = {
             "name": request_data["quiz_name"],
@@ -35,10 +37,15 @@ class CreateQuizView(LoginRequiredMixin, View):
             "end_date": request_data["quiz_end_date"],
         }
         if CreateQuizForm(data=quiz_data).is_valid():
-            quiz = Quiz(**quiz_data, user_created=request.user)
-            quiz.save()
+            try:
+                quiz = Quiz(**quiz_data, user_created=request.user)
+                quiz.save()
+            except (UniqueViolation, IntegrityError):
+                return HttpResponse(
+                    status=400, content="Quiz with this name already exists"
+                )
             if len(request_data["questions"]) > MAX_QUESTION_COUNT:
-                raise ValueError("Too many questions")
+                return HttpResponse(status=400, content="Too many questions")
             for question_request_data in request_data["questions"]:
                 question_data = {"name": question_request_data["question"]}
                 if CreateQuestionForm(data=question_data).is_valid():
@@ -48,7 +55,9 @@ class CreateQuizView(LoginRequiredMixin, View):
                         len(question_request_data["answers"]) < MIN_ANSWER_COUNT
                         or len(question_request_data["answers"]) > MAX_ANSWER_COUNT
                     ):
-                        raise ValueError("Too many or too few answers")
+                        return HttpResponse(
+                            status=400, content="Too many or too few answers"
+                        )
                     for answer in question_request_data["answers"]:
                         answer_data = {"name": answer}
                         if CreateAnswerForm(data=answer_data).is_valid():
@@ -56,5 +65,6 @@ class CreateQuizView(LoginRequiredMixin, View):
                             answer.save()
                             question.answers.add(answer)
                     quiz.questions.add(question)
-
+        else:
+            return HttpResponse(status=400, content="Form not valid")
         return redirect("quiz:index")

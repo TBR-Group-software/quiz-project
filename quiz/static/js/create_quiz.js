@@ -27,7 +27,7 @@ function addAnswer() {
     const answerCount = answerContainer.querySelectorAll('.answer').length;
 
     if (answerCount >= MAX_ANSWER_COUNT) {
-        alert(`You can't add more than ${MAX_ANSWER_COUNT} answers`);
+        createAlert('danger', `You can't add more than ${MAX_ANSWER_COUNT} answers`);
         return;
     }
     const questionCount = document.querySelectorAll('.question-answer').length;
@@ -43,7 +43,7 @@ function addQuestion() {
     const questionContainer = document.querySelector('.question-answer');
     const questionCount = document.querySelectorAll('.question-answer').length;
     if (questionCount >= MAX_QUESTION_COUNT) {
-        alert(`You can't add more than ${MAX_QUESTION_COUNT} questions`);
+        createAlert('danger', `You can't add more than ${MAX_QUESTION_COUNT} questions`);
         return;
     }
     let newQuestion = questionContainer.cloneNode(true);
@@ -106,12 +106,16 @@ function createQuiz() {
 function sendCreateQuiz(data){
     let xhttp = new XMLHttpRequest();
     xhttp.onerror = function () {
-        console.log(this);
+        createAlert('danger', this.responseText);
         return false
     }
 
     xhttp.onload = function () {
         console.log(this);
+        if (this.status != 200) {
+            createAlert('danger', this.responseText);
+            return false
+        }
         return true
     }
 
@@ -138,7 +142,7 @@ function removeAnswer(element) {
         });
     }
     else {
-        alert(`You need at least ${MIN_ANSWER_COUNT} answers`);
+        createAlert('danger', `You need at least ${MIN_ANSWER_COUNT} answers`);
     }
 }
 
@@ -147,7 +151,7 @@ function removeQuestion() {
     const prevQuestion = currentQuestion.previousElementSibling;
 
     if (prevQuestion == null || !prevQuestion.classList.contains('question-answer')) {
-        alert('You need at least one question');
+        createAlert('danger', 'You need at least one question');
         return;
     }
     currentQuestion.remove();
@@ -161,7 +165,7 @@ function backButton() {
     const prevQuestion = currentQuestion.previousElementSibling;
 
     if (prevQuestion == null || !prevQuestion.classList.contains('question-answer')) {
-        alert('You need at least one question');
+        createAlert('danger', 'You need at least one question');
         return;
     }
     currentQuestion.classList.add('d-none');
@@ -175,7 +179,7 @@ function nextButton() {
     const nextQuestion = currentQuestion.nextElementSibling;
 
     if (nextQuestion == null || !nextQuestion.classList.contains('question-answer')) {
-        alert('You need at least one question');
+        createAlert('danger', 'You need at least one question');
         return;
     }
     currentQuestion.classList.add('d-none');
@@ -282,12 +286,12 @@ function validateFields() {
     const answers = currentQuestion.querySelectorAll('.answer');
     let valid = true;
     if (questionName == '') {
-        alert('Question name is required');
+        createAlert('danger', 'Question name is required');
         valid = false;
     }
     answers.forEach(answer => {
         if (answer.querySelector('input').value == '') {
-            alert('Answer text is required');
+            createAlert('danger', 'Answer text is required');
             valid = false;
         }
     });
@@ -303,4 +307,22 @@ const getCookie = function (cName) {
         if (val.indexOf(name) === 0) res = val.substring(name.length);
     });
     return res;
+}
+
+
+function createAlert(type, message) {
+    const alert = document.createElement('div');
+    alert.classList.add('alert', `alert-${type}`, 'alert-dismissible', 'fade', 'show', 'position-absolute', 'message-alert');
+    const alectConteiner = document.createElement('div');
+    alectConteiner.innerHTML = message;
+    const closeButton = document.createElement('button');
+    closeButton.classList.add('btn-close');
+    closeButton.setAttribute('type', 'button');
+    closeButton.setAttribute('data-bs-dismiss', 'alert');
+    alectConteiner.appendChild(closeButton);
+    alert.appendChild(alectConteiner);
+    const screen = document.querySelector('.screen');
+    screen.prepend(alert);
+
+    return alert;
 }

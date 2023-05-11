@@ -5,7 +5,7 @@
     {% compress css %}
         <link type="text/x-scss"
               rel="stylesheet"
-              href="{% static 'css/register.css' %}">
+              href="{% static 'scss/register.scss' %}">
     {% endcompress %}
 {% endblock imports %}
 {% block title %}
@@ -38,7 +38,7 @@
                    value="Register" />
         </form>
         <p class="text-center mt-4">
-            Already register? <a href="{% url 'account:login' %}">Login</a>
+            Already register? <a class="underline-href" href="{% url 'account:login' %}">Login</a>
         </p>
     </div>
 {% endblock content %}
