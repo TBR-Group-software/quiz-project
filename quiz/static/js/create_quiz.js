@@ -1,8 +1,9 @@
-const DEFAULT_ANSWER_COUNT = 3;
+const DEFAULT_ANSWER_COUNT = 2;
 const MIN_ANSWER_COUNT = 2;
 const MAX_ANSWER_COUNT = 5;
 
 const MAX_QUESTION_COUNT = 10;
+const MIN_QUESTION_COUNT = 2;
 
 
 function changeScreenToAddQuestion() {
@@ -10,7 +11,7 @@ function changeScreenToAddQuestion() {
     const addQuestionScreen = document.querySelector('.question-answer');
     const pageCounter = document.querySelector('#page-counter');
 
-    document.querySelectorAll('.action').forEach(button => button.classList.remove('d-none'));
+    document.querySelectorAll('.action').forEach(button => button.classList.remove('invisible'));
 
     quizScreen.classList.add('d-none');
     addQuestionScreen.classList.remove('d-none');
@@ -67,6 +68,29 @@ function addQuestion() {
     showOrHideButtons();
 }
 
+function showOrHideAddQuestionButton() {
+    const questionCount = document.querySelectorAll('.question-answer').length;
+    const addQuestionButton = document.querySelector('.add-question');
+    if (questionCount >= MAX_QUESTION_COUNT) {
+        addQuestionButton.classList.add('invisible');
+    }
+    else {
+        addQuestionButton.classList.remove('invisible');
+    }
+}
+
+function showOrHideAddAnswerButton() {
+    const currentQuestion = document.querySelector('.question-answer:not(.d-none)');
+    const answerCount = currentQuestion.querySelectorAll('.answer').length;
+    const addAnswerButton = currentQuestion.querySelector('.add-answer');
+    if (answerCount >= MAX_ANSWER_COUNT) {
+        addAnswerButton.classList.add('invisible');
+    }
+    else {
+        addAnswerButton.classList.remove('invisible');
+    }
+}
+
 function hideCurrentQuestion() {
     const currentQuestion = document.querySelector('.question-answer:not(.d-none)');
     currentQuestion.classList.add('d-none');
@@ -116,6 +140,7 @@ function sendCreateQuiz(data){
             createAlert('danger', this.responseText);
             return false
         }
+        window.location.replace("/");
         return true
     }
 
@@ -144,6 +169,7 @@ function removeAnswer(element) {
     else {
         createAlert('danger', `You need at least ${MIN_ANSWER_COUNT} answers`);
     }
+    showOrHideAddAnswerButton();
 }
 
 function removeQuestion() {
@@ -199,7 +225,7 @@ function backToStart() {
     pageCounter.classList.remove('d-block');
     pageCounter.classList.add('d-none');
 
-    document.querySelectorAll('.action').forEach(button => button.classList.add('d-none'));
+    document.querySelectorAll('.action').forEach(button => button.classList.add('invisible'));
 }
 
 function showOrHideNextButton() {
@@ -207,10 +233,10 @@ function showOrHideNextButton() {
     const nextQuestion = currentQuestion.nextElementSibling;
 
     if (nextQuestion == null || !nextQuestion.classList.contains('question-answer')) {
-        document.querySelector('.next-button').classList.add('d-none');
+        document.querySelector('.next-button').classList.add('invisible');
     }
     else {
-        document.querySelector('.next-button').classList.remove('d-none');
+        document.querySelector('.next-button').classList.remove('invisible');
     }
 }
 
@@ -220,22 +246,21 @@ function showOrHideBackButton() {
 
     if (prevQuestion == null || !prevQuestion.classList.contains('question-answer')) {
 
-        document.querySelector('.back-button').classList.add('d-none');
+        document.querySelector('.back-button').classList.add('invisible');
     }
     else {
-        document.querySelector('.back-button').classList.remove('d-none');
+        document.querySelector('.back-button').classList.remove('invisible');
     }
 }
 
 function showOrHideCreateButton() {
-    const currentQuestion = document.querySelector('.question-answer:not(.d-none)');
-    const nextQuestion = currentQuestion.nextElementSibling;
+    const questionCount = document.querySelectorAll('.question-answer').length;
 
-    if (nextQuestion == null || !nextQuestion.classList.contains('question-answer')) {
-        document.querySelector('.action-create-quiz').classList.remove('d-none');
+    if (questionCount >= MIN_QUESTION_COUNT && questionCount <= MAX_QUESTION_COUNT) {
+        document.querySelector('.action-create-quiz').classList.remove('invisible');
     }
     else {
-        document.querySelector('.action-create-quiz').classList.add('d-none');
+        document.querySelector('.action-create-quiz').classList.add('invisible');
     }
 }
 
@@ -278,6 +303,8 @@ function showOrHideButtons() {
     showCurrentPage();
     showOrHideRemoveQuestionButton();
     showBackToStartButton();
+    showOrHideAddQuestionButton();
+    showOrHideAddAnswerButton();
 }
 
 function validateFields() {

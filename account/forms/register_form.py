@@ -9,7 +9,11 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField(
         label="",
         widget=forms.EmailInput(
-            attrs={"class": "form-control input", "placeholder": "email"}
+            attrs={
+                "class": "form-control input",
+                "placeholder": "email",
+                "type": "email",
+            }
         ),
     )
     password1 = forms.CharField(

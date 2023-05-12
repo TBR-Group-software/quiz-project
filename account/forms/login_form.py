@@ -6,7 +6,11 @@ class UserLoginForm(AuthenticationForm):
     username = forms.CharField(
         label="",
         widget=forms.TextInput(
-            attrs={"class": "form-control input", "placeholder": "email"}
+            attrs={
+                "class": "form-control input",
+                "placeholder": "email",
+                "type": "email",
+            }
         ),
     )
     password = forms.CharField(

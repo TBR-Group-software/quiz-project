@@ -2,19 +2,19 @@
 
 .progress {
     --bs-progress-height: 0.5rem;
-    --bs-progress-bar-bg: rgba(255, 93, 93, 1);
+    --bs-progress-bar-bg: #FF5D5D;
     margin: 5px;
-}
 
-.progress .progress-bar {
-    border-radius: 4px;
+    .progress-bar {
+        border-radius: 4px;
+    }
 }
 
 .description {
     padding: 5px;
     margin: 5px;
     border-radius: 10px;
-    background: rgb(255, 93, 93);
+    background: $danger;
     color: white;
 }
 
@@ -28,22 +28,24 @@
     top: 45%;
 }
 
-.answer {
-    padding: 5px;
-    margin-right: 10px;
-    margin-left: 15px;
-}
-
-.answer label {
+.answers{
     margin-left: 10px;
+}
+.answer {
+    padding: 5px 5px 5px 0;
+    font-size: 20px;
+
+    label {
+        margin-left: 10px;
+    }
 }
 
 .gray-line {
-    background-color: rgb(159, 159, 159);
+    background-color: rgb(222, 222, 222);
     height: 1px;
     margin-top: 5px;
     margin-bottom: 5px;
-    margin-right: 30px;
+    margin-right: 20px;
 }
 
 .actions {

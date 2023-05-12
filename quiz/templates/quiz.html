@@ -41,7 +41,7 @@
                 <div class="answers row mt-3">
                     {% for answer in question.answers.all %}
                         <div class="answer col-12">
-                            <input type="checkbox"
+                            <input type="radio"
                                    name="{{ answer.name }}"
                                    class="form-check-input"
                                    id="answer_{{ answer.id }}"
