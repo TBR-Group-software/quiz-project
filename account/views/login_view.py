@@ -16,6 +16,7 @@ def user_login_view(request: HttpRequest) -> HttpResponse:
         if form.is_valid():
             user = form.get_user()
             login(request, user)
+            messages.success(request, "You have singed up successfully.")
             redirect_to = request.GET.get("redirect_to", "")
             if redirect_to != "":
                 return redirect(redirect_to)

@@ -13,11 +13,13 @@ from quiz.forms import CreateAnswerForm, CreateQuestionForm, CreateQuizForm
 from quiz.models import Quiz, Question, Answer
 from psycopg2.errors import UniqueViolation
 from django.db.utils import IntegrityError
+from django.contrib import messages
 
 
 MIN_ANSWER_COUNT = 2
 MAX_ANSWER_COUNT = 5
 MAX_QUESTION_COUNT = 10
+MIN_QUESTION_COUNT = 2
 
 
 class CreateQuizView(LoginRequiredMixin, View):
@@ -44,13 +46,14 @@ class CreateQuizView(LoginRequiredMixin, View):
                 return HttpResponse(
                     status=400, content="Quiz with this name already exists"
                 )
-            if len(request_data["questions"]) > MAX_QUESTION_COUNT:
-                return HttpResponse(status=400, content="Too many questions")
+            if (
+                len(request_data["questions"]) > MAX_QUESTION_COUNT
+                or len(request_data["questions"]) < MIN_QUESTION_COUNT
+            ):
+                return HttpResponse(status=400, content="Too many or too few questions")
             for question_request_data in request_data["questions"]:
                 question_data = {"name": question_request_data["question"]}
                 if CreateQuestionForm(data=question_data).is_valid():
-                    question = Question(**question_data)
-                    question.save()
                     if (
                         len(question_request_data["answers"]) < MIN_ANSWER_COUNT
                         or len(question_request_data["answers"]) > MAX_ANSWER_COUNT
@@ -58,6 +61,8 @@ class CreateQuizView(LoginRequiredMixin, View):
                         return HttpResponse(
                             status=400, content="Too many or too few answers"
                         )
+                    question = Question(**question_data)
+                    question.save()
                     for answer in question_request_data["answers"]:
                         answer_data = {"name": answer}
                         if CreateAnswerForm(data=answer_data).is_valid():
@@ -67,4 +72,5 @@ class CreateQuizView(LoginRequiredMixin, View):
                     quiz.questions.add(question)
         else:
             return HttpResponse(status=400, content="Form not valid")
+        messages.success(request, "Qiuz created!.")
         return redirect("quiz:index")
