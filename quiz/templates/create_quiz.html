@@ -133,7 +133,7 @@
             <input type="button"
                    class="btn btn-outline-danger"
                    value="Delete question"
-                   onclick="removeQuestion()">
+                   onclick="confirmRemoveQuestion()">
         </div>
         <div class="actions-left action back-to-start-button position-absolute invisible">
             <input type="button"
@@ -142,4 +142,23 @@
                    onclick="backToStart()">
         </div>
     </form>
+    <!-- Vertically remove question modal -->
+    <div id="removeQuestionModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Do you realy want remove this question?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                    <button type="button"
+                            class="btn btn-outline-danger"
+                            onclick="removeQuestion()"
+                            data-bs-dismiss="modal">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

@@ -186,6 +186,10 @@ function removeQuestion() {
     showOrHideButtons();
 }
 
+function confirmRemoveQuestion() {
+    new bootstrap.Modal(document.getElementById('removeQuestionModal')).show();
+}
+
 function backButton() {
     const currentQuestion = document.querySelector('.question-answer:not(.d-none)');
     const prevQuestion = currentQuestion.previousElementSibling;
