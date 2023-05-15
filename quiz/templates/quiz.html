@@ -3,7 +3,9 @@
 {% load compress %}
 {% block imports %}
     {% compress css %}
-        <link type="text/x-scss" rel="stylesheet" href="{% static 'scss/quiz.scss' %}">
+        <link type="text/x-scss"
+              rel="stylesheet"
+              href="{% static 'scss/quiz.scss' %}">
     {% endcompress %}
     <script src="{% static 'js/quiz.js' %}"></script>
 {% endblock imports %}
@@ -55,12 +57,13 @@
             </div>
         {% endfor %}
     </div>
-    <div id="finish_quiz_container" class="finish-quiz-container d-none">
+    <div id="finish_quiz_container" class="finish-quiz-container container d-flex align-items-center justify-content-center d-none">
         <div class="description mt-3  position-absolute">
             <span>Thank you for completing the quiz!🤘</span>
         </div>
         <div class="actions mt-3 mb-2 position-absolute">
-            <a href="{% url 'quiz:index' %}" class="btn btn-outline-danger float-end">Finish</a>
+            <a href="{% url 'quiz:index' %}"
+               class="btn btn-outline-danger float-end">Finish</a>
         </div>
     </div>
 {% endblock content %}

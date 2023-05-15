@@ -4,20 +4,20 @@
     Quiz project
 {% endblock title %}
 {% block content %}
-    <h3 class="text-center">Active quizzes</h3>
+    <h3 class="text-center mb-3">Active quizzes</h3>
     <div class="active-quiezes row">
         {% for quiz in quizzes %}
-        <div class="col-md-12 col-lg-4 p-1">
-            <div class="card mb-2 ms-1 me-1">
-                <h5 class="card-header">{{ quiz.name }}</h5>
-                <div class="card-body">
-                    <p class="card-text">{{ quiz.description }}</p>
-                    <p class="card-text">Questions {{ quiz.questions.count }}</p>
-                    <p class="card-text">Available from {{ quiz.start_date|date:"Y-m-d" }} to {{ quiz.end_date|date:"Y-m-d" }}</p>
-                    <a href='{% url "quiz:quiz" slug=quiz.slug %}'
-                       class="btn btn-outline-danger d-block ms-4 me-4">Start</a>
+            <div class="col-md-12 col-lg-4 p-1">
+                <div class="card mb-2 ms-1 me-1">
+                    <h5 class="card-header">{{ quiz.name }}</h5>
+                    <div class="card-body">
+                        <p class="card-text">{{ quiz.description }}</p>
+                        <p class="card-text">Questions {{ quiz.questions.count }}</p>
+                        <p class="card-text">Available from {{ quiz.start_date|date:"Y-m-d" }} to {{ quiz.end_date|date:"Y-m-d" }}</p>
+                        <a href='{% url "quiz:quiz" slug=quiz.slug %}'
+                           class="btn btn-outline-danger d-block ms-4 me-4">Start</a>
+                    </div>
                 </div>
-            </div>
             </div>
         {% endfor %}
     </div>

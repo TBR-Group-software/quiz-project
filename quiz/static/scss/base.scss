@@ -12,6 +12,7 @@ body {
 }
 
 .screen {
+    margin-top: 50px;
     border-radius: 30px;
     background-color: rgb(238, 238, 238);
     max-width: 1100px;
@@ -23,7 +24,7 @@ body {
 }
 
 .logout-button {
-    right: 30px;
+    right: calc(1.5rem * .5);
     top: 10px;
 }
 
@@ -58,7 +59,7 @@ body {
 }
 
 .logo-button {
-    left: 30px;
+    left: calc(1.5rem * .5);
     top: 10px;
 }
 

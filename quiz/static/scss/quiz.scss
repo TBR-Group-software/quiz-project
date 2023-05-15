@@ -16,21 +16,23 @@
     border-radius: 10px;
     background: $danger;
     color: white;
+    font-size: 20px;
 }
 
-.finish-quiz-container .description {
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    max-width: 800px;
-    top: 45%;
+.finish-quiz-container {
+    margin-top: 70px;
+
+    .description {
+        font-size: 30px;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
 }
 
-.answers{
+.answers {
     margin-left: 10px;
 }
+
 .answer {
     padding: 5px 5px 5px 0;
     font-size: 20px;

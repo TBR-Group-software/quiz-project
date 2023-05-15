@@ -16,7 +16,7 @@ services:
              daphne -b 0.0.0.0 -p 8000 quiz_project.asgi:application"
     volumes:
       - .:/app
-      - static-volume:/app/static
+      - static-volume:/app/staticfiles
       - media-volume:/app/media
     networks:
       - quiz-network
