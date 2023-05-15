@@ -2,15 +2,14 @@
 The goal of this project is to develop the best quiz platform. This project was made using the Django framework and some minor libraries.
 
 <p float="center", align="justify ">
+  <img src="https://github.com/TBR-Group-software/quiz-project/assets/19671971/d44f6697-480c-4e83-bfd9-e5d3710595be" width="250" />
 
-  <img src="https://github.com/TBR-Group-software/quiz-project/assets/19671971/345bca63-13dc-4100-801f-2656c174bf04" width="250" />
-
-  <img src="https://github.com/TBR-Group-software/quiz-project/assets/19671971/baffe406-df38-48ba-81ad-abc2c21c8071" width="250" />
+  <img src="https://github.com/TBR-Group-software/quiz-project/assets/19671971/dc69a6ce-c1ab-421c-9053-84adc8a8acbe" width="250" />
      
-  <img src="https://github.com/TBR-Group-software/quiz-project/assets/19671971/4df2896f-cbba-48af-a074-196ca1642de3" width="250" />
+  <img src="https://github.com/TBR-Group-software/quiz-project/assets/19671971/68a5e6a2-6203-4014-a666-57b18a61c2d7" width="250" />
 </p>
 <p>
-  <img src="https://github.com/TBR-Group-software/quiz-project/assets/19671971/11fa2c94-5e9f-4ee8-8b4b-b06df758fca9" width="750" />
+  <img src="https://github.com/TBR-Group-software/quiz-project/assets/19671971/cee67f6f-5d20-4b3f-85be-c0d0599e712d" width="750" />
 </p>
 
 ## Features
