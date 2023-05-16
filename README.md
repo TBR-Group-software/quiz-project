@@ -30,7 +30,7 @@ The goal of this project is to develop the best quiz platform. This project was 
 - [pre-commit](https://pre-commit.com/) - Framework for managing and maintaining multi-language pre-commit hooks.
 - [black](https://github.com/psf/black) - The uncompromising Python code formatter.
 - [Flake8](https://github.com/pycqa/flake8) - Python tool that glues together pycodestyle, pyflakes, mccabe, and third-party plugins to check the style and quality of some python code.
-- [Bootstrap 5](https://getbootstrap.com/) - Bootstrap is a powerful, feature-packed frontend toolkit. Build anything—from prototype to production—in minutes.
+- [Bootstrap 5](https://getbootstrap.com/) - Bootstrap is a powerful, feature-packed frontend toolkit. Build anything-from prototype to production—in minutes.
 - [Sass](https://sass-lang.com/) - Preprocessor scripting language that is interpreted or compiled into Cascading Style Sheets.
 - [JavaScript](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/) - Programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS
 - [Docker](https://www.docker.com/) - Set of platform as a service products that use OS-level virtualization to deliver software in packages called containers.
@@ -96,8 +96,10 @@ pip3 install -r requirements-dev.txt
 ```
 **Step 3:**
 Run PostgreSQL
+
 **Step 4:**
 Run RabbitMQ
+
 **Step 5:**
 Run django migrations
 ```
