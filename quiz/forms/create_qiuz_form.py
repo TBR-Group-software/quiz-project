@@ -14,23 +14,21 @@ class CreateQuizForm(forms.Form):
             attrs={"class": "form-control input", "placeholder": "description"}
         ),
     )
-    start_date = forms.DateTimeField(
+    start_date = forms.DateField(
         label="",
-        widget=forms.DateTimeInput(
+        widget=forms.DateInput(
             attrs={
                 "class": "form-control input",
                 "placeholder": "start date",
-                "type": "datetime-local",
             }
         ),
     )
-    end_date = forms.DateTimeField(
+    end_date = forms.DateField(
         label="",
-        widget=forms.DateTimeInput(
+        widget=forms.DateInput(
             attrs={
                 "class": "form-control input",
                 "placeholder": "end date",
-                "type": "datetime-local",
             }
         ),
     )

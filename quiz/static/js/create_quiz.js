@@ -112,6 +112,7 @@ function createQuiz() {
         });
         questions.push({
             "question": question.querySelector('.question').value,
+            "type": question.querySelector('.question-type').value,
             "answers": answers
         });
     });

@@ -8,8 +8,8 @@ class Quiz(models.Model):
     description = models.TextField()
     questions = models.ManyToManyField("Question", related_name="questions")
     user_created = models.ForeignKey("auth.User", on_delete=models.CASCADE)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateField()
+    end_date = models.DateField()
 
     def save(self, *args, **kwargs):
         if not self.slug:

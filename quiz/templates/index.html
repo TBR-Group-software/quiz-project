@@ -12,7 +12,7 @@
                     <h5 class="card-header">{{ quiz.name }}</h5>
                     <div class="card-body">
                         <p class="card-text">{{ quiz.description }}</p>
-                        <p class="card-text">Questions {{ quiz.questions.count }}</p>
+                        <p class="card-text">{{ quiz.questions.count }} Questions</p>
                         <p class="card-text">Available from {{ quiz.start_date|date:"Y-m-d" }} to {{ quiz.end_date|date:"Y-m-d" }}</p>
                         <a href='{% url "quiz:quiz" slug=quiz.slug %}'
                            class="btn btn-outline-danger d-block ms-4 me-4">Start</a>
