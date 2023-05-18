@@ -57,6 +57,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_1_question_1.pk,
                 }
@@ -75,6 +76,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_1_question_1.pk,
                 }
@@ -96,6 +98,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_1_question_1.pk,
                 }
@@ -117,6 +120,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_1_question_1.pk,
                 }
@@ -138,6 +142,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_1_question_1.pk,
                 }
@@ -157,6 +162,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_1_question_1.pk,
                 }
@@ -179,6 +185,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_1_question_1.pk,
                 }
@@ -201,6 +208,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_1_question_1.pk,
                 }
@@ -220,6 +228,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_1_question_1.pk,
                 }
@@ -234,6 +243,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_2_question_1.pk,
                 }
@@ -259,6 +269,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_1_question_1.pk,
                 }
@@ -273,6 +284,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_2_question_1.pk,
                 }
@@ -295,6 +307,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_1_question_1.pk,
                 }
@@ -309,6 +322,7 @@ class TestSetUserAnswer(TestCase):
             "/set_user_answer/",
             data=json.dumps(
                 {
+                    "type": "SINGLE_SELECT",
                     "questionId": self.question_1.pk,
                     "anwerdId": self.answer_2_question_1.pk,
                 }

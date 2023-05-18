@@ -76,6 +76,16 @@
         </div>
         <div class="questions">
             <div class="question-answer d-none">
+            <div class="row mb-1">
+                <div class="col-md-6 col-sm-12">
+                    <span class="d-block h5">Type</span>
+                    <select name="quiz_type" class="form-select question-type mb-2">
+                        {% for quiz_type in quiz_types %}
+                            <option value="{{ quiz_type.0 }}">{{ quiz_type.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
                 <div class="mb-1">
                     <span>Question</span>
                     <input type="text"

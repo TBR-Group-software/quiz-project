@@ -10,7 +10,7 @@ from django.views import View
 import json
 
 from quiz.forms import CreateAnswerForm, CreateQuestionForm, CreateQuizForm
-from quiz.models import Quiz, Question, Answer
+from quiz.models import Quiz, Question, Answer, QUIZ_TYPES
 from psycopg2.errors import UniqueViolation
 from django.db.utils import IntegrityError
 from django.contrib import messages
@@ -26,7 +26,7 @@ class CreateQuizView(LoginRequiredMixin, View):
     """Create quiz view."""
 
     def get(self, request: HttpRequest) -> HttpResponse:
-        return render(request, "create_quiz.html")
+        return render(request, "create_quiz.html", {"quiz_types": QUIZ_TYPES})
 
     def post(
         self, request: HttpRequest
@@ -52,7 +52,11 @@ class CreateQuizView(LoginRequiredMixin, View):
             ):
                 return HttpResponse(status=400, content="Too many or too few questions")
             for question_request_data in request_data["questions"]:
-                question_data = {"name": question_request_data["question"]}
+                print(question_request_data)
+                question_data = {
+                    "name": question_request_data["question"],
+                    "type": question_request_data["type"],
+                }
                 if CreateQuestionForm(data=question_data).is_valid():
                     if (
                         len(question_request_data["answers"]) < MIN_ANSWER_COUNT

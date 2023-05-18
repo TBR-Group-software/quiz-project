@@ -9,8 +9,13 @@ const getCookie = function (cName) {
     return res;
 }
 
-function processUserChoice(questionId, anwerdId) {
-    const isAnswered = sendUserChoice(questionId, anwerdId);
+function processSingleUserChoice(questionId, anwerdId) {
+    const data = {
+        type: 'SINGLE_SELECT',
+        questionId: questionId,
+        anwerdId: anwerdId,
+    }
+    const isAnswered = sendUserChoice(data);
     if (isAnswered) {
         unCheckAnswer(anwerdId, questionId);
         const isNextSelected = selectNextQuestion(questionId);
@@ -22,7 +27,7 @@ function processUserChoice(questionId, anwerdId) {
     updateProgressBar(questionId);
 }
 
-function sendUserChoice(questionId, anwerdId) {
+function sendUserChoice(data) {
     let xhttp = new XMLHttpRequest();
     xhttp.onerror = function () {
         console.log(this);
@@ -34,11 +39,7 @@ function sendUserChoice(questionId, anwerdId) {
         return true
     }
 
-    const postObj = {
-        questionId: questionId,
-        anwerdId: anwerdId,
-    };
-    const postJSON = JSON.stringify(postObj);
+    const postJSON = JSON.stringify(data);
 
     xhttp.open("POST", `/set_user_answer`, true);
     xhttp.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
@@ -58,6 +59,7 @@ function selectNextQuestion(questionId) {
     question.classList.add('d-none');
     nextQuestion.classList.remove('d-none');
     hideOrShowBackButton();
+    showOrHideNextButton();
 
     return true;
 }
@@ -113,6 +115,7 @@ function backToPreviusQuestion() {
 
     updateProgressBar(prevQuestion.id.replace('question_', ''), true);
     hideOrShowBackButton();
+    showOrHideNextButton();
 
     return true;
 }
@@ -141,4 +144,45 @@ function unCheckAnswer(answerId, questionId) {
             allAnswerds[currentAnserIndex].checked = true;
         }
     }
+}
+
+function showOrHideNextButton(){
+    const nextButton = document.querySelector('.next-button');
+    const currentQuestion = document.querySelector('.question-container:not(.d-none)');
+    if (currentQuestion == null) {
+        nextButton.classList.add('d-none');
+        return false;
+    }
+    const answers = currentQuestion.querySelectorAll('input[type="checkbox"]');
+    const isAnyAnswerChecked = Array.prototype.slice.call(answers).some(answer => answer.checked);
+    if (isAnyAnswerChecked) {
+        nextButton.classList.remove('d-none');
+        return true;
+    }
+    else {
+        nextButton.classList.add('d-none');
+        return false;
+    }
+}
+
+function processMultiUserChoice(){
+    const currentQuestion = document.querySelector('.question-container:not(.d-none)');
+    const answers = currentQuestion.querySelectorAll('input[type="checkbox"]:checked');
+
+    const data = {
+        type: 'MULTI_SELECT',
+        questionId: currentQuestion.id.replace('question_', ''),
+        anwerdId: Array.prototype.slice.call(answers).map(answer => answer.id.replace('answer_', '')),
+    }
+    const isAnswered = sendUserChoice(data);
+
+    if (isAnswered) {
+        const isNextSelected = selectNextQuestion(data.questionId);
+        if (!isNextSelected) {
+            console.log('Quiz is finished');
+            finishQuiz();
+        }
+    }
+    updateProgressBar(data.questionId);
+    showOrHideNextButton();
 }
