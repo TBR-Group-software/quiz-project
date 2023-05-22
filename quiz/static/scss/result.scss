@@ -1,0 +1,56 @@
+@import "base";
+
+.progress-bar-container{
+    .progress {
+        --bs-progress-height: 0.5rem;
+        --bs-progress-bar-bg: #FF5D5D;
+        margin: 5px;
+
+        .progress-bar {
+            border-radius: 4px;
+        }
+    }
+}
+
+.percent-bar-container{
+    .progress {
+        --bs-progress-height: 0.5rem;
+        --bs-progress-bar-bg: #5E91FF;
+        margin: 5px;
+        margin-top: 10px!important;
+
+        .progress-bar {
+            border-radius: 4px;
+        }
+    }
+}
+
+.description {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    background: $danger;
+    color: white;
+    font-size: 20px;
+}
+
+.answers {
+    margin-left: 10px;
+}
+
+.answer {
+    padding: 5px 5px 5px 0;
+    font-size: 20px;
+
+    label {
+        margin-left: 10px;
+    }
+}
+
+.gray-line {
+    background-color: rgb(222, 222, 222);
+    height: 1px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 20px;
+}

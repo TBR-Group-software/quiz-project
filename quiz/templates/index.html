@@ -14,8 +14,12 @@
                         <p class="card-text">{{ quiz.description }}</p>
                         <p class="card-text">{{ quiz.questions.count }} Questions</p>
                         <p class="card-text">Available from {{ quiz.start_date|date:"Y-m-d" }} to {{ quiz.end_date|date:"Y-m-d" }}</p>
-                        <a href='{% url "quiz:quiz" slug=quiz.slug %}'
-                           class="btn btn-outline-danger d-block ms-4 me-4">Start</a>
+                        <div class="row">
+                            <a href='{% url "quiz:quiz" slug=quiz.slug %}'
+                               class="btn btn-outline-danger d-block ms-4 me-4 col">Start</a>
+                            <a href='{% url "quiz:result" slug=quiz.slug %}'
+                               class="btn btn-outline-primary d-block ms-4 me-4 col">Result</a>
+                        </div>
                     </div>
                 </div>
             </div>
