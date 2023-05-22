@@ -96,7 +96,7 @@ function finishQuiz() {
 }
 
 function backToPreviusQuestion() {
-    let currentQuestion = document.querySelector('.question-container:not(.d-none)');
+    const currentQuestion = document.querySelector('.question-container:not(.d-none)');
     if (currentQuestion == null) {
         var prevQuestion = document.querySelector('.last-question.d-none');
         const finishScreen = document.getElementById('finish_quiz_container');

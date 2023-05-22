@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+{% load compress %}
+{% block imports %}
+    {% compress css %}
+        <link type="text/x-scss"
+              rel="stylesheet"
+              href="{% static 'scss/result.scss' %}">
+    {% endcompress %}
+    <script src="{% static 'js/result.js' %}"></script>
+{% endblock imports %}
+{% block title %}
+    Result {{ quiz.name }}
+{% endblock title %}
+{% block content %}
+    <h1 class="text-center h3">{{ quiz.name }}</h1>
+    <div class="row">
+        <div class="progress-bar-container">
+            <div class="progress mt-3">
+                <div class="progress-bar"
+                     id="progress_bar"
+                     role="progressbar"
+                     style="width: 0%"
+                     aria-valuenow="0"
+                     aria-valuemin="0"
+                     aria-valuemax="100"></div>
+            </div>
+        </div>
+        <div class="back-button-container action d-none">
+            <input type="button"
+                   class="btn btn-outline-danger ms-2 actions-top-left position-absolute"
+                   value="<"
+                   onclick="previusScreen()">
+        </div>
+        <div class="next-button-container action">
+            <input type="button"
+                   class="btn btn-outline-danger ms-2 actions-top-right position-absolute"
+                   value=">"
+                   onclick="nextScreen()">
+        </div>
+    </div>
+    <div id="questions">
+        {% for question in questions %}
+
+                <div class="question-container {% if not forloop.first %}d-none{% endif %} {% if forloop.last %}last-question{% endif %}">
+                    <div class="description mt-3">
+                        <span>{{ question.name }}</span>
+                    </div>
+                    <div class="answers mt-3">
+                        {% for answer in question.answers %}
+                            <div class="answer row">
+                                <span class="col-lg-2 col-md-12">{{ answer.name }}</span>
+                                <div class="percent-bar-container col-8">
+                                    <div class="progress mt-3">
+                                        <div class="progress-bar"
+                                            id="progress_bar"
+                                            role="progressbar"
+                                            style="width: {{ answer.percent }}%"
+                                            aria-valuenow="{{ answer.percent }}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <span class="col-2">{{ answer.count }}</span>
+                                <div class="gray-line"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+
+    </div>
+{% endblock content %}
