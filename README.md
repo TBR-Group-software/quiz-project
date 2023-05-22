@@ -17,6 +17,9 @@ The goal of this project is to develop the best quiz platform. This project was 
 - Responsive design for all types of devices
 - Take quiz
 - Create quiz
+- Single choice quiz answer
+- Multi choice quiz answer
+- Results of quiz
 - Register and login
 - Register email notification
 - Docker container
