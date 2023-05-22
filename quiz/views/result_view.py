@@ -31,7 +31,9 @@ class ResultView(View):
                         ),
                     }
                 )
-            result_questions.append({"name": question.name, "answers": answers})
+            result_questions.append(
+                {"name": question.name, "answers": answers, "id": question.id}
+            )
 
         context = {"quiz": quiz, "questions": result_questions}
 
