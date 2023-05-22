@@ -14,12 +14,10 @@ class ResultView(View):
             answers = []
             for answer in question.answers.all():
                 question_answers = UserAnswer.objects.filter(answer=answer)
-                print(question_answers)
                 question_answers_count_all = question_answers.count()
                 question_answers_count_true = question_answers.filter(
                     user_answer=True
                 ).count()
-                print(question_answers_count_all, question_answers_count_true)
                 answers.append(
                     {
                         "name": answer.name,
@@ -28,6 +26,8 @@ class ResultView(View):
                             question_answers_count_true
                             / question_answers_count_all
                             * 100
+                            if question_answers_count_all != 0
+                            else 0
                         ),
                     }
                 )
@@ -37,5 +37,4 @@ class ResultView(View):
 
         context = {"quiz": quiz, "questions": result_questions}
 
-        print(context)
         return render(request, "result.html", context=context)

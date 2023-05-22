@@ -35,7 +35,7 @@
                    value="<"
                    onclick="previusScreen()">
         </div>
-        <div class="next-button-container action">
+        <div class="next-button-container action{% if not questions %} d-none{% endif %}">
             <input type="button"
                    class="btn btn-outline-danger ms-2 actions-top-right position-absolute"
                    value=">"
@@ -43,6 +43,7 @@
         </div>
     </div>
     <div id="questions">
+        {% if questions %}
         {% for question in questions %}
             <div class="question-container {% if not forloop.first %}d-none{% endif %} {% if forloop.last %}last-question{% endif %}"
                  id="question_{{ question.id }}">
@@ -50,25 +51,39 @@
                     <span>{{ question.name }}</span>
                 </div>
                 <div class="answers mt-3">
-                    {% for answer in question.answers %}
-                        <div class="answer row">
-                            <span class="col-lg-2 col-md-12">{{ answer.name }}</span>
-                            <div class="percent-bar-container col-8">
-                                <div class="progress mt-3">
-                                    <div class="progress-bar"
-                                         role="progressbar"
-                                         style="width: {{ answer.percent }}%"
-                                         aria-valuenow="{{ answer.percent }}"
-                                         aria-valuemin="0"
-                                         aria-valuemax="100"></div>
+                    {% if question.answers %}
+                        {% for answer in question.answers %}
+                            <div class="answer row">
+                                <span class="col-lg-2 col-md-12">{{ answer.name }}</span>
+                                <div class="percent-bar-container col-8">
+                                    <div class="progress mt-3">
+                                        <div class="progress-bar"
+                                             role="progressbar"
+                                             style="width: {{ answer.percent }}%"
+                                             aria-valuenow="{{ answer.percent }}"
+                                             aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                    </div>
                                 </div>
+                                <span class="col-2">{{ answer.count }}</span>
+                                <div class="gray-line"></div>
                             </div>
-                            <span class="col-2">{{ answer.count }}</span>
-                            <div class="gray-line"></div>
+                        {% endfor %}
+                    {% else %}
+                    123
+                        <div class="answer row">
+                            <span class="col-12">No answers</span>
                         </div>
-                    {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
+        {% else %}
+            <div class="question-container">
+                <div class="description mt-3">
+                    <span>No questions</span>
+                </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock content %}
