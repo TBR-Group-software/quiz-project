@@ -52,7 +52,6 @@ class CreateQuizView(LoginRequiredMixin, View):
             ):
                 return HttpResponse(status=400, content="Too many or too few questions")
             for question_request_data in request_data["questions"]:
-                print(question_request_data)
                 question_data = {
                     "name": question_request_data["question"],
                     "type": question_request_data["type"],
